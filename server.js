@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
   });
 
   require('./trivia/service')(app);
+  require('./users/service')(app);
 
 app.get('/hello', (req, res) => {
   res.send('Hello World!');
