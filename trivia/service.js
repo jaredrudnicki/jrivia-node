@@ -22,9 +22,9 @@ module.exports = (app) => {
 
   const findTriviaById = (req, res) =>
   dao.findTriviaById(req.params.id)
-    .then(tweet => res.json(trivia));
+    .then(trivia => res.json(trivia));
   
-  app.get("/rest/tweets/:id", findTriviaById);
+  app.get("/rest/trivia/:id", findTriviaById);
 
   const updateTrivia = (req, res) =>
   dao.updateTrivia(req.params.id, req.body)

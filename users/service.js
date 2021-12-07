@@ -21,10 +21,16 @@ module.exports = (app) => {
   app.post("/rest/users", createUser);
 
   const findUsersById = (req, res) =>
-  dao.findUsersById(req.params.id)
-    .then(tweet => res.json(users));
+  dao.findUserById(req.params.id)
+    .then(users => res.json(users));
   
-  app.get("/rest/tweets/:id", findUsersById);
+  app.get("/rest/users/id/:id", findUsersById);
+
+  const findUsersByName = (req, res) =>
+  dao.findUserByName(req.params.username)
+    .then(users => res.json(users));
+  
+  app.get("/rest/users/username/:username", findUsersByName);
 
   const updateUsers = (req, res) =>
   dao.updateUsers(req.params.id, req.body)
