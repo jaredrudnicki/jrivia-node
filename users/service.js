@@ -32,10 +32,10 @@ module.exports = (app) => {
   
   app.get("/rest/users/username/:username", findUsersByName);
 
-  const updateUsers = (req, res) =>
-  dao.updateUsers(req.params.id, req.body)
+  const updateUser = (req, res) =>
+  dao.updateUser(req.params.id, req.body)
     .then(status => res.send(status));
 
-  app.put("/rest/users/:id", updateUsers);
+  app.put("/rest/users/:id", updateUser);
 
 }
