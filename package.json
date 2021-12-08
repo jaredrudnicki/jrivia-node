@@ -9,8 +9,11 @@
   "author": "Jessica Chin and Jared Rudnicki",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcrypt-nodejs": "0.0.3",
     "express": "^4.17.1",
     "mongoose": "^6.0.14"
+  },
+  "devDependencies": {
+    "@types/bcrypt-nodejs": "0.0.31"
   }
 }

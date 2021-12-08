@@ -1,5 +1,5 @@
 const dao = require('./users-dao')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt-nodejs')
 
 module.exports = (app) => {
 
@@ -15,7 +15,7 @@ module.exports = (app) => {
 
   app.delete("/rest/users/:id", deleteUser);
 
-  const createUser = (req, res) => {
+  const createUser = async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
     dao.createUser(req.body)
       .then((insertedUser) => res.json(insertedUser));
@@ -45,7 +45,7 @@ module.exports = (app) => {
   const login = (req, res) => {
     dao.findUserByName(req.body.username).then(
       existingUser => {
-        if(existingUser.length === 0) return res.json({ msg: `No account with this email found` })
+        if(existingUser.length === 0) return res.json({ msg: `No account with this username found` })
         const validPassword = bcrypt.compareSync(req.body.password, existingUser[0].password);
         if(!validPassword) return res.json({ msg: `Passwords did not match` });
         res.json(existingUser);
