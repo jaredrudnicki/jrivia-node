@@ -18,7 +18,8 @@ module.exports = (app) => {
   const createUser = async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
     dao.createUser(req.body)
-      .then((insertedUser) => res.json(insertedUser));
+      .then((insertedUser) => res.json(insertedUser))
+      .catch(res.json({msg: `error creating user`}));
   }
 
   app.post("/rest/users", createUser);
@@ -48,7 +49,9 @@ module.exports = (app) => {
         if(existingUser.length === 0) return res.json({ msg: `No account with this username found` })
         const validPassword = bcrypt.compareSync(req.body.password, existingUser[0].password);
         if(!validPassword) return res.json({ msg: `Passwords did not match` });
-        res.json(existingUser);
+
+        existingUser[0].password = req.body.password
+        res.json({ msg: `logging in`, existingUser })
       }
     )
   }
