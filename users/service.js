@@ -18,7 +18,10 @@ module.exports = (app) => {
   const createUser = async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
     dao.createUser(req.body)
-      .then((insertedUser) => res.json(insertedUser))
+      .then((insertedUser) => {
+        res.json(insertedUser)
+        req.session['currentUser'] = insertedUser;
+      })
       .catch(res.json({msg: `error creating user`}));
   }
 
@@ -51,6 +54,7 @@ module.exports = (app) => {
         if(!validPassword) return res.json({ msg: `Passwords did not match` });
 
         existingUser[0].password = req.body.password
+        req.session['currentUser'] = existingUser;
         res.json({ msg: `logging in`, existingUser })
       }
     )
