@@ -60,6 +60,11 @@ module.exports = (app) => {
     )
   }
 
-  app.post('/rest/users/login', login);
+  const logout = (req,res) => {
+    req.session.destroy()
+    res.send(200);
+  }
+
+  app.post('/rest/users/logout', logout);
 
 }

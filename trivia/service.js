@@ -24,7 +24,26 @@ module.exports = (app) => {
   dao.findTriviaById(req.params.id)
     .then(trivia => res.json(trivia));
   
-  app.get("/rest/trivia/:id", findTriviaById);
+  app.get("/rest/trivia/id/:id", findTriviaById);
+
+
+  const findTriviaByQuestion = (req, res) =>
+  dao.findTriviaByQuestion(req.params.question)
+    .then(trivia => res.json(trivia));
+  
+  app.get("/rest/trivia/question/:question", findTriviaByQuestion);
+
+  const findTriviaByCategory = (req, res) =>
+  dao.findTriviaByCategory(req.params.category)
+    .then(trivia => res.json(trivia));
+  
+  app.get("/rest/trivia/category/:category", findTriviaByCategory);
+
+  const findTriviaByOwner = (req, res) =>
+  dao.findTriviaByOwner(req.params.owner)
+    .then(trivia => res.json(trivia));
+  
+  app.get("/rest/trivia/owner/:owner", findTriviaByOwner);
 
   const updateTrivia = (req, res) =>
   dao.updateTrivia(req.params.id, req.body)
