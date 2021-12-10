@@ -16,13 +16,17 @@ module.exports = (app) => {
   app.delete("/rest/users/:id", deleteUser);
 
   const createUser = async (req, res) => {
+    dao.findUserByName(req.body.username).then(existingUser => {
+      if(existingUser.length > 0) {
+        res.json({msg: `user already exists`});
+      }
+    })
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
     dao.createUser(req.body)
       .then((insertedUser) => {
         res.json(insertedUser)
         req.session['currentUser'] = insertedUser;
-      })
-      .catch(res.json({msg: `error creating user`}));
+      });
   }
 
   app.post("/rest/users", createUser);
