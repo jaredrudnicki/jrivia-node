@@ -58,17 +58,10 @@ module.exports = (app) => {
         if(!validPassword) return res.json({ msg: `Passwords did not match` });
 
         existingUser[0].password = req.body.password
-        req.session['currentUser'] = existingUser;
         res.json({ msg: `logging in`, existingUser })
       }
     )
   }
-
-  const logout = (req,res) => {
-    req.session.destroy()
-    res.send(200);
-  }
-
-  app.post('/rest/users/logout', logout);
+  app.post('/rest/users/login', login);
 
 }
