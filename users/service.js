@@ -66,4 +66,12 @@ module.exports = (app) => {
   }
   app.post('/rest/users/login', login);
 
+
+  const bookmarkTrivia = (req,res) => {
+    dao.bookmarkTrivia(req.params.id, req.body.favorite_trivia_ids)
+      .then(status => res.send(status))
+  }
+
+  app.put('/rest/users/favorites/:id', bookmarkTrivia)
+
 }

@@ -18,10 +18,15 @@ const updateUser = (id, password) =>
     model.updateOne({_id: id},
     {$set: {password: password}});
 
+const bookmarkTrivia = (id, favoriteTrivias) =>
+    model.updateOne({_id: id},
+        {$set: {favorite_trivia_ids: favoriteTrivias}});
+
 module.exports = {
   findAllUsers, findUserById,
   findUserByName, createUser,
-  deleteUser, updateUser
+  deleteUser, updateUser,
+  bookmarkTrivia
 };
 
     
