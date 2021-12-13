@@ -44,6 +44,7 @@ module.exports = (app) => {
   app.get("/rest/users/username/:username", findUsersByName);
 
   const updateUser = (req, res) =>
+  req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
   dao.updateUser(req.params.id, req.body)
     .then(status => res.send(status));
 
