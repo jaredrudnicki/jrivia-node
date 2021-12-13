@@ -14,9 +14,9 @@ const createUser = (user) =>
 const deleteUser = (id) =>
     model.deleteOne({_id:id});
 
-const updateUser = (id, user) =>
+const updateUser = (id, password) =>
     model.updateOne({_id: id},
-    {$set: user});
+    {$set: {password: password}});
 
 module.exports = {
   findAllUsers, findUserById,

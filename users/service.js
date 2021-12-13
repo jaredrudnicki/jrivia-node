@@ -45,11 +45,11 @@ module.exports = (app) => {
 
   const updateUser = (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
-  dao.updateUser(req.params.id, req.body)
+  dao.updateUser(req.params.id, req.body.password)
     .then(status => res.send(status));
   }
 
-  app.put("/rest/users/:user", updateUser);
+  app.put("/rest/users/:id", updateUser);
 
 
   const login = (req, res) => {
