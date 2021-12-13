@@ -48,7 +48,7 @@ module.exports = (app) => {
   dao.updateUser(req.params.id, req.body)
     .then(status => res.send(status));
 
-  app.put("/rest/users/:id", updateUser);
+  app.put("/rest/users/:user", updateUser);
 
 
   const login = (req, res) => {
