@@ -74,4 +74,10 @@ module.exports = (app) => {
 
   app.put('/rest/users/favorites/:id', bookmarkTrivia)
 
+  const updateUserTally = (req, res) =>
+  dao.updateUserTally(req.params.id, req.body.correct_tally, req.body.incorrect_tally)
+    .then(status => res.send(status));
+
+  app.put("/rest/users/tally/:id", updateUserTally);
+
 }

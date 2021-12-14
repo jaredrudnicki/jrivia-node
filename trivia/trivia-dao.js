@@ -25,8 +25,15 @@ const updateTrivia = (id, trivia) =>
     model.updateOne({_id: id},
     {$set: trivia});
 
+const updateTriviaTally = (id, correctCnt, incorrectCnt) =>
+    model.updateOne({_id: id}, 
+        {$set: {
+            correct_count: correctCnt,
+            incorrect_count: incorrectCnt
+        }});
+
 module.exports = {
   findAllTrivia, findTriviaById, 
   findTriviaByQuestion, findTriviaByCategory, findTriviaByOwner,
-  createTrivia, deleteTrivia, updateTrivia
+  createTrivia, deleteTrivia, updateTrivia, updateTriviaTally
 };

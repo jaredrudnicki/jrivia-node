@@ -51,4 +51,10 @@ module.exports = (app) => {
 
   app.put("/rest/trivia/:id", updateTrivia);
 
+  const updateTriviaTally = (req,res) =>
+  dao.updateTriviaTally(req.params.id, req.body.correct_count, req.body.incorrect_count)
+    .then(status => res.send(status));
+
+  app.put("/rest/trivia/tally/:id", updateTriviaTally);
+
 }

@@ -22,11 +22,18 @@ const bookmarkTrivia = (id, favoriteTrivias) =>
     model.updateOne({_id: id},
         {$set: {favorite_trivia_ids: favoriteTrivias}});
 
+const updateUserTally = (id, correctCnt, incorrectCnt) =>
+    model.updateOne({_id: id}, 
+        {$set: {
+            correct_tally: correctCnt,
+            incorrect_tally: incorrectCnt
+        }});
+
 module.exports = {
   findAllUsers, findUserById,
   findUserByName, createUser,
   deleteUser, updateUser,
-  bookmarkTrivia
+  bookmarkTrivia, updateUserTally
 };
 
     
