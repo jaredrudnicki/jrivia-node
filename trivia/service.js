@@ -2,11 +2,20 @@ const dao = require('./trivia-dao')
 
 module.exports = (app) => {
 
-  const findAllTrivia = (req, res) =>
-    dao.findAllTrivia()
-    .then(trivia => res.json(trivia));
+  const findAllTrivia = (req, res) => {
+    const limit = parseInt(req.query.limit);
+    const skip = parseInt(req.query.skip) || 0;
+    if (limit) {
+      dao.findXTrivia(limit, skip)
+      .then(trivia => res.send(trivia));
+    } else {
+      dao.findAllTrivia()
+      .then(trivia => res.json(trivia));
+    }
+  }
 
   app.get("/rest/trivia", findAllTrivia);
+
 
   const deleteTrivia = (req, res) =>
     dao.deleteTrivia(req.params.id)

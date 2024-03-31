@@ -2,6 +2,8 @@ const model = require('./trivia-model');
 
 const findAllTrivia = () => model.find().sort({"created_at": -1});
 
+const findXTrivia = (limit, skip) => model.find().sort({"created_at": -1}).limit(limit).skip(skip);
+
 const findTriviaById = (id) =>
     model.find({_id:id}).sort({"created_at": -1});
 
@@ -33,7 +35,7 @@ const updateTriviaTally = (id, correctCnt, incorrectCnt) =>
         }});
 
 module.exports = {
-  findAllTrivia, findTriviaById, 
+  findAllTrivia, findXTrivia, findTriviaById, 
   findTriviaByQuestion, findTriviaByCategory, findTriviaByOwner,
   createTrivia, deleteTrivia, updateTrivia, updateTriviaTally
 };
